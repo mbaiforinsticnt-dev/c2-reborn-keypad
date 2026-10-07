@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Keypad and soft keys (draft)</title><style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none}
+body{margin:0;background:#1a1d1f;font-family:Arial,sans-serif;color:#ddd;display:flex;justify-content:center}
+.phone{width:320px;padding:14px 12px 18px;background:linear-gradient(#2b2f31,#101213);border-radius:26px 26px 40px 40px;margin:8px 0;box-shadow:0 0 0 2px #444}
+.lcd{height:150px;background:#0e1620;border:2px solid #555;border-radius:4px;padding:8px;font-size:15px;position:relative}
+.lcd small{color:#7fb;display:block;margin-top:6px}.lcd .big{font-size:26px;color:#fff;margin-top:12px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.sl,.sr{position:absolute;top:4px;width:76px;height:44px;font-size:13px}.sl{left:0}.sr{right:0}.soft,.cs{height:44px;border-radius:10px 10px 18px 18px;border:1px solid #3a3f41;border-top-color:#777;background:linear-gradient(#4a4f51,#1a1d1e);color:#bde;font-size:14px;box-shadow:inset 0 1px #888,0 2px 3px #000}
+.dock{position:relative;height:138px;margin-top:10px}
+.dock svg{position:absolute;left:74px;top:0;width:148px;height:140px}
+.cs{position:absolute;top:56px;width:76px;height:48px}.call{left:0;border-color:#2d7a45;background:linear-gradient(#58a96d,#1d5a31)}.end{right:0;border-color:#8a2a35;background:linear-gradient(#c45460,#6b1b26)}
+.seg{fill:url(#g);stroke:#555;stroke-width:1;pointer-events:none}
+.hit{fill:transparent;stroke:none;cursor:pointer}
+.zones .hit{fill:rgba(80,200,255,.14);stroke:#4cf;stroke-width:1}
+.zones .okhit{fill:rgba(255,200,60,.25);stroke:#fc4}
+.on.seg,.seg.on{fill:#2b7fa8}.okface.on{fill:#2b7fa8}
+.okface{fill:url(#g2);stroke:#666;pointer-events:none}.okring{fill:none;stroke:#888;stroke-width:1.5;pointer-events:none}
+.okhit{fill:transparent;cursor:pointer}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.key{height:50px;border-radius:6px 6px 14px 14px;border:1px solid #353a3c;border-top-color:#777;background:linear-gradient(#444849,#161819);color:#fff;display:flex;gap:6px;align-items:center;justify-content:center;font:inherit;box-shadow:inset 0 1px #777,0 2px 3px #000}
+.key b{font-size:21px}.key i{font-style:normal;font-size:11px;color:#6cf}
+.soft.on,.cs.on,.key.on{filter:brightness(1.6);transform:translateY(1px)}
+</style></head><body>
+<div class="phone" id="ph"><div class="lcd"><div>Last key</div><div class="big" id="out">-</div><small id="log"></small></div>
+<div class="dock"><svg viewBox="0 0 296 280"><defs><radialGradient id="g" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#5c6264"/><stop offset="1" stop-color="#1c1f20"/></radialGradient><radialGradient id="g2" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#6a7072"/><stop offset="1" stop-color="#1e2122"/></radialGradient></defs>
+<g transform="translate(8,0)"><path class="seg" data-k="up" d="M58.33,54.83A118,118 0 0 1 221.67,54.83L174.61,103.91A50,50 0 0 0 105.39,103.91Z"/><path class="seg" data-k="right" d="M225.17,58.33A118,118 0 0 1 225.17,221.67L176.09,174.61A50,50 0 0 0 176.09,105.39Z"/><path class="seg" data-k="down" d="M221.67,225.17A118,118 0 0 1 58.33,225.17L105.39,176.09A50,50 0 0 0 174.61,176.09Z"/><path class="seg" data-k="left" d="M54.83,221.67A118,118 0 0 1 54.83,58.33L103.91,105.39A50,50 0 0 0 103.91,174.61Z"/><circle cx="140" cy="140" r="58" fill="#121415"/><circle class="okface" cx="140" cy="140" r="52"/><circle class="okring" cx="140" cy="140" r="56"/><path class="hit" data-k="up" d="M41.01,41.01A140,140 0 0 1 238.99,41.01L140.00,140.00A0,0 0 0 0 140.00,140.00Z"/><path class="hit" data-k="right" d="M238.99,41.01A140,140 0 0 1 238.99,238.99L140.00,140.00A0,0 0 0 0 140.00,140.00Z"/><path class="hit" data-k="down" d="M238.99,238.99A140,140 0 0 1 41.01,238.99L140.00,140.00A0,0 0 0 0 140.00,140.00Z"/><path class="hit" data-k="left" d="M41.01,238.99A140,140 0 0 1 41.01,41.01L140.00,140.00A0,0 0 0 0 140.00,140.00Z"/><circle class="okhit" data-k="ok" cx="140" cy="140" r="58"/></g></svg>
+<button class="soft sl" data-k="softL">Left soft</button><button class="soft sr" data-k="softR">Right soft</button><button class="cs call" data-k="call"></button><button class="cs end" data-k="end"></button></div>
+<div class="pad"><button class="key" data-k="1"><b>1</b><i></i></button><button class="key" data-k="2"><b>2</b><i>abc</i></button><button class="key" data-k="3"><b>3</b><i>def</i></button><button class="key" data-k="4"><b>4</b><i>ghi</i></button><button class="key" data-k="5"><b>5</b><i>jkl</i></button><button class="key" data-k="6"><b>6</b><i>mno</i></button><button class="key" data-k="7"><b>7</b><i>pqrs</i></button><button class="key" data-k="8"><b>8</b><i>tuv</i></button><button class="key" data-k="9"><b>9</b><i>wxyz</i></button><button class="key" data-k="*"><b>*</b><i></i></button><button class="key" data-k="0"><b>0</b><i>+</i></button><button class="key" data-k="#"><b>#</b><i></i></button></div></div>
+<script>
+const out=document.getElementById('out'),log=document.getElementById('log');let h=[];
+if(location.search.includes('zones'))document.body.classList.add('zones');
+function fire(k){out.textContent=k;h.unshift(k);h=h.slice(0,8);log.textContent=h.join('  ');if(navigator.vibrate)navigator.vibrate(8)}
+function lit(k,on){document.querySelectorAll('[data-k="'+k+'"]').forEach(e=>{if(e.classList.contains('hit')||e.classList.contains('okhit')){const s=document.querySelector('.seg[data-k="'+k+'"]')||document.querySelector('.okface');s&&s.classList.toggle('on',on)}else e.classList.toggle('on',on)})}
+let rep=null,rt=null;
+document.querySelectorAll('[data-k]').forEach(e=>{
+ e.addEventListener('pointerdown',ev=>{ev.preventDefault();const k=e.dataset.k;e.setPointerCapture&&e.setPointerCapture(ev.pointerId);lit(k,true);fire(k);
+  if(['up','down','left','right'].includes(k)){rt=setTimeout(()=>{rep=setInterval(()=>fire(k),110)},420)}});
+ const up=()=>{clearTimeout(rt);clearInterval(rep);lit(e.dataset.k,false)};
+ e.addEventListener('pointerup',up);e.addEventListener('pointercancel',up);e.addEventListener('contextmenu',x=>x.preventDefault());
+});
+</script></body></html>
